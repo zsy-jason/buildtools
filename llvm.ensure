@@ -1,0 +1,14 @@
+$ServiceURL https://chrome-infra-packages.appspot.com/
+$ParanoidMode NotParanoid
+
+@Subdir buildtools/llvm/darwin-arm64
+fuchsia/third_party/clang/mac-arm64 git_revision:020d2fb7711d70e296f19d83565f8d93d2cfda71
+
+@Subdir buildtools/llvm/darwin-x86_64
+fuchsia/third_party/clang/mac-amd64 git_revision:020d2fb7711d70e296f19d83565f8d93d2cfda71
+
+@Subdir buildtools/llvm/linux-arm64
+fuchsia/third_party/clang/linux-arm64 git_revision:020d2fb7711d70e296f19d83565f8d93d2cfda71
+
+@Subdir buildtools/llvm/linux-x86_64
+fuchsia/third_party/clang/linux-amd64 git_revision:020d2fb7711d70e296f19d83565f8d93d2cfda71
