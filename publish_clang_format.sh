@@ -12,14 +12,28 @@ cat /dev/null > hash.md
 
 # Traverse all tar.gz under llvm directory 
 for file in buildtools-*.tar.gz;do
+    echo "file: $file"
     # llvm files already exists
     raw_folder=$(echo $file | sed 's/.tar.gz//g')
+    echo "raw_folder: $raw_folder"
     
     # extract the clang-format file
     clang_format_dir=$(echo $raw_folder | sed 's/llvm/clang-format/g')
     mkdir $clang_format_dir
     subdir=$(echo $raw_folder | awk -F"-" '{print $(NF-1)"-"$NF}')
-    cp $root_dir/buildtools/llvm/$subdir/bin/clang-format $clang_format_dir/
+    echo "subdir: $subdir"
+    clang_format_file=""
+    if [ -f "$root_dir/buildtools/llvm/${subdir}/bin/clang-format.exe" ]; then
+        echo "clang-format.exe exists"
+        clang_format_file="clang-format.exe"
+    elif [ -f "$root_dir/buildtools/llvm/${subdir}/bin/clang-format" ]; then
+        echo "clang-format exists"
+        clang_format_file="clang-format"
+    else
+        echo "clang-format not found"
+        continue
+    fi
+    cp $root_dir/buildtools/llvm/$subdir/bin/$clang_format_file $clang_format_dir/
     
     # package the artifacts
     tar -czf $clang_format_dir.tar.gz $clang_format_dir
