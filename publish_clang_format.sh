@@ -19,7 +19,16 @@ for file in buildtools-*.tar.gz;do
     clang_format_dir=$(echo $raw_folder | sed 's/llvm/clang-format/g')
     mkdir $clang_format_dir
     subdir=$(echo $raw_folder | awk -F"-" '{print $(NF-1)"-"$NF}')
-    cp $root_dir/buildtools/llvm/$subdir/bin/clang-format $clang_format_dir/
+    clang_format_file=""
+    if [ -f "$root_dir/buildtools/llvm/${subdir}/bin/clang-format.exe" ]; then
+        clang_format_file="clang-format.exe"
+    elif [ -f "$root_dir/buildtools/llvm/${subdir}/bin/clang-format" ]; then
+        clang_format_file="clang-format"
+    else
+        echo "clang-format not found"
+        continue
+    fi
+    cp $root_dir/buildtools/llvm/$subdir/bin/$clang_format_file $clang_format_dir/
     
     # package the artifacts
     tar -czf $clang_format_dir.tar.gz $clang_format_dir
