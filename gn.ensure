@@ -2,16 +2,16 @@ $ServiceURL https://chrome-infra-packages.appspot.com/
 $ParanoidMode NotParanoid
 
 @Subdir buildtools/gn/darwin-arm64
-gn/gn/mac-arm64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
+gn/gn/mac-arm64 git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab
 
 @Subdir buildtools/gn/darwin-x86_64
-gn/gn/mac-amd64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
+gn/gn/mac-amd64 git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab
 
 @Subdir buildtools/gn/linux-arm64
-gn/gn/linux-arm64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
+gn/gn/linux-arm64 git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab
 
 @Subdir buildtools/gn/linux-x86_64
-gn/gn/linux-amd64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
+gn/gn/linux-amd64 git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab
 
 @Subdir buildtools/gn/windows-x86_64
-gn/gn/windows-amd64 git_revision:cc28efe62ef0c2fb32455f414a29c4a55bb7fbc4
+gn/gn/windows-amd64 git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab
