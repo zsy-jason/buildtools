@@ -4,33 +4,47 @@ https://storage.googleapis.com/storage/v1/b/chromium-browser-clang/o/8e05e94b4cc
 @name dsymutil-darwin-x86_64
 https://storage.googleapis.com/storage/v1/b/chromium-browser-clang/o/c42a18278889f271b2c21c5fa9885d9b4178fcf4?alt=media
 
-@name clang-linux-x86_64
+@name clang-linux-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Linux_x64/clang-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name clang-linux-arm64
+@name clang-linux-arm64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Linux_x64/clang-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name clang-darwin-x86_64
+@name clang-darwin-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Mac/clang-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name clang-darwin-arm64
+@name clang-darwin-arm64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Mac_arm64/clang-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name clang-windows-x86_64
+@name clang-windows-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Win/clang-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name llvmobjdump-linux-x86_64
+@name llvmobjdump-linux-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Linux_x64/llvmobjdump-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name llvmobjdump-linux-arm64
+@name llvmobjdump-linux-arm64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Linux_x64/llvmobjdump-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
             
-            
-@name llvmobjdump-darwin-x86_64
+@name llvmobjdump-darwin-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Mac/llvmobjdump-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name llvmobjdump-darwin-arm64
+@name llvmobjdump-darwin-arm64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Mac_arm64/llvmobjdump-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
-@name llvmobjdump-windows-x86_64
+@name llvmobjdump-windows-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Win/llvmobjdump-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
+
+@name rust-toolchain-linux-x86_64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Linux_x64/rust-toolchain-22be76b7e259f27bf3e55eb931f354cd8b69d55f-3-llvmorg-21-init-16348-gbd809ffb.tar.xz
+
+@name rust-toolchain-linux-arm64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Linux_x64/rust-toolchain-22be76b7e259f27bf3e55eb931f354cd8b69d55f-3-llvmorg-21-init-16348-gbd809ffb.tar.xz
+
+@name rust-toolchain-darwin-x86_64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Mac/rust-toolchain-22be76b7e259f27bf3e55eb931f354cd8b69d55f-3-llvmorg-21-init-16348-gbd809ffb.tar.xz
+
+@name rust-toolchain-darwin-arm64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Mac_arm64/rust-toolchain-22be76b7e259f27bf3e55eb931f354cd8b69d55f-3-llvmorg-21-init-16348-gbd809ffb.tar.xz
+
+@name rust-toolchain-windows-x86_64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Win/rust-toolchain-22be76b7e259f27bf3e55eb931f354cd8b69d55f-3-llvmorg-21-init-16348-gbd809ffb.tar.xz
