@@ -32,9 +32,14 @@ def download_and_make_archive(name_url_map: dict[str, str]):
         print(f'downloading {name} from {url}')
         subprocess.check_output(['curl', '-o', f'{name}', url], stderr=subprocess.STDOUT)
         print(f'compressing {name}.tar.gz')
-        with tarfile.open(f"{name}.tar.gz", "w:gz") as tf:
-            tf.add(name, arcname=name)
-        os.remove(name)
+        if os.path.isdir(name):
+            shutil.make_archive(name, "gztar", name)
+        else:
+            if name.endswith('.tar.xz') or name.endswith('.tar.gz'):
+                continue
+            with tarfile.open(f"{name}.tar.gz", "w:gz") as tf:
+                tf.add(name, arcname=name)
+            os.remove(name)
 
 
 def process_gcs_packages(ensure_files: str):
