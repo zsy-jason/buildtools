@@ -1,0 +1,43 @@
+name: publish gcs packages to release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'tag for releases'
+        required: true
+        type: string
+      cipd-ensure-files:
+        description: 'the target cipd ensure file(s), split by comma. (e.g. gn.ensure)'
+        required: true
+        type: string
+      custom_script:
+        description: 'use the custom script after downloading cipd package by ensure files'
+        type: string
+
+jobs:
+  download:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: make archives of gcs packages
+        run: python3 -u publish_gcs_package.py --ensure-files ${{ github.event.inputs.cipd-ensure-files }}
+
+      - name: run custom script
+        if: ${{ github.event.inputs.custom_script }}
+        run: |
+          bash ${{ github.event.inputs.custom_script }}
+
+      - name: push to release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.event.inputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "*.tar.gz"
