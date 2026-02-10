@@ -41,3 +41,4 @@ jobs:
           tag: ${{ github.event.inputs.tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "*.tar.gz,*.tar.xz"
+          allowUpdates: true

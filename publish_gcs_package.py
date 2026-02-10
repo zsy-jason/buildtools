@@ -31,15 +31,35 @@ def download_and_make_archive(name_url_map: dict[str, str]):
     for name, url in name_url_map.items():
         print(f'downloading {name} from {url}')
         subprocess.check_output(['curl', '-o', f'{name}', url], stderr=subprocess.STDOUT)
-        print(f'compressing {name}.tar.gz')
         if os.path.isdir(name):
+            print(f'compressing {name}.tar.gz')
             shutil.make_archive(name, "gztar", name)
         else:
-            if name.endswith('.tar.xz') or name.endswith('.tar.gz'):
+            if name.endswith('.tar.gz'):
                 continue
-            with tarfile.open(f"{name}.tar.gz", "w:gz") as tf:
-                tf.add(name, arcname=name)
-            os.remove(name)
+            elif name.endswith('.tar.xz'):
+                print(f're-packing {name} to .tar.gz')
+                
+                archive_base_name = name.replace('.tar.xz', '')
+                temp_dir = f"{archive_base_name}_extracted"
+                os.makedirs(temp_dir, exist_ok=True)
+
+                try:
+                    # Extract the .tar.xz file
+                    with tarfile.open(name, 'r:xz') as xz_file:
+                        xz_file.extractall(path=temp_dir)
+                    
+                    # Create the new .tar.gz archive from the extracted contents
+                    shutil.make_archive(archive_base_name, 'gztar', temp_dir)
+                finally:
+                    # Clean up
+                    os.remove(name)
+                    shutil.rmtree(temp_dir)
+            else:
+                print(f'compressing {name}.tar.gz')
+                with tarfile.open(f"{name}.tar.gz", "w:gz") as tf:
+                    tf.add(name, arcname=name)
+                os.remove(name)
 
 
 def process_gcs_packages(ensure_files: str):
