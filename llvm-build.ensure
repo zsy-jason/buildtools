@@ -19,6 +19,18 @@ https://storage.googleapis.com/chromium-browser-clang/Mac_arm64/clang-llvmorg-21
 @name clang-windows-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Win/clang-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
+@name clangd-linux-x86_64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Linux_x64/clangd-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
+
+@name clangd-darwin-x86_64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Mac/clangd-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
+
+@name clangd-darwin-arm64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Mac_arm64/clangd-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
+
+@name clangd-windows-x86_64.tar.xz
+https://storage.googleapis.com/chromium-browser-clang/Win/clangd-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
+
 @name llvmobjdump-linux-x86_64.tar.xz
 https://storage.googleapis.com/chromium-browser-clang/Linux_x64/llvmobjdump-llvmorg-21-init-16348-gbd809ffb-15.tar.xz
 
