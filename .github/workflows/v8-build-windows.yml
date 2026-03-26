@@ -1,0 +1,79 @@
+name: publish v8 Windows libraries to release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'release tag'
+        required: true
+        type: string
+
+jobs:
+  build-v8:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    strategy:
+      matrix:
+        arch: [x64, x86]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: setup depot_tools
+        run: |
+          git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+          echo "${{ github.workspace }}\depot_tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: download v8
+        run: |
+          New-Item -ItemType Directory -Force -Path ${{ github.workspace }}\v8
+          cd ${{ github.workspace }}\v8
+          fetch v8
+          cd v8
+          git checkout 11.1.277
+          gclient sync
+      - name: build v8 ${{ matrix.arch }}
+        shell: cmd
+        run: |
+          cd ${{ github.workspace }}\v8\v8
+          gn gen out\${{ matrix.arch }} --args="v8_monolithic=true v8_static_library=true is_clang=true fatal_linker_warnings=false treat_warnings_as_errors=false v8_enable_pointer_compression=false is_official_build=false is_component_build=false symbol_level=1 v8_enable_v8_checks=false use_custom_libcxx=false v8_enable_debugging_features=false is_debug=true enable_iterator_debugging=true v8_use_external_startup_data=false v8_enable_i18n_support=false use_goma=false goma_dir=\"None\" target_cpu=\"${{ matrix.arch }}\" v8_target_cpu=\"${{ matrix.arch }}\" target_os=\"win\" v8_enable_etw_stack_walking=false"
+          ninja -C out\${{ matrix.arch }} -v
+      - name: package v8 libraries ${{ matrix.arch }}
+        run: |
+          New-Item -ItemType Directory -Force -Path ${{ github.workspace }}\Windows\${{ matrix.arch }}
+          Copy-Item -Path "${{ github.workspace }}\v8\v8\out\${{ matrix.arch }}\obj\*.a" -Destination "${{ github.workspace }}\Windows\${{ matrix.arch }}" -ErrorAction SilentlyContinue
+          Copy-Item -Path "${{ github.workspace }}\v8\v8\out\${{ matrix.arch }}\obj\*.lib" -Destination "${{ github.workspace }}\Windows\${{ matrix.arch }}" -ErrorAction SilentlyContinue
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: v8-windows-${{ matrix.arch }}
+          path: ${{ github.workspace }}\Windows\${{ matrix.arch }}
+
+  package-and-release:
+    needs: build-v8
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ${{ github.workspace }}\artifacts
+      - name: package v8 libraries
+        run: |
+          New-Item -ItemType Directory -Force -Path ${{ github.workspace }}\Windows
+          Copy-Item -Path "${{ github.workspace }}\artifacts\v8-windows-x64\*" -Destination "${{ github.workspace }}\Windows\x64" -Recurse -Force
+          Copy-Item -Path "${{ github.workspace }}\artifacts\v8-windows-x86\*" -Destination "${{ github.workspace }}\Windows\x86" -Recurse -Force
+          Compress-Archive -Path "${{ github.workspace }}\Windows" -DestinationPath "${{ github.workspace }}\v8_lib_windows.zip" -Force
+      - name: download v8 headers
+        run: |
+          git clone --depth 1 --branch 11.1.277 https://chromium.googlesource.com/v8/v8.git ${{ github.workspace }}\v8_headers
+          Compress-Archive -Path "${{ github.workspace }}\v8_headers\include" -DestinationPath "${{ github.workspace }}\v8_include_headers.zip" -Force
+      - name: push to release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ github.event.inputs.tag }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "v8_lib_windows.zip,v8_include_headers.zip"
